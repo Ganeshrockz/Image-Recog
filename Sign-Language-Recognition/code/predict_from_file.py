@@ -1,6 +1,7 @@
 #!/usr/bin/env python2
 import sys
 import traceback
+import pyttsx
 
 import cv2
 from sklearn.externals import joblib
@@ -35,7 +36,10 @@ def main():
                 predicted_labels = classifier_model.predict(frame_flattened)
                 predicted_label = predicted_labels[0]
                 print("Predicted label = {}".format(predicted_label))
-
+                engine = pyttsx.init()
+                engine.say("The predicted text is " + str(predicted_label))
+                engine.runAndWait()
+                engine.stop()
                 if image_label != predicted_label:
                     print("Incorrect prediction!!")
                     cv2.waitKey(5000)

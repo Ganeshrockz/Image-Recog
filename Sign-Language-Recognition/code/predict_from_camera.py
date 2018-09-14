@@ -1,6 +1,7 @@
 #!/usr/bin/env python2
 import os
 import sys
+import pyttsx
 import traceback
 
 import cv2
@@ -59,6 +60,10 @@ def main():
                 predicted_image = get_image_from_label(predicted_label)
                 predicted_image = resize_image(predicted_image, 200)
                 cv2.imshow("Prediction = '{}'".format(predicted_label), predicted_image)
+                engine = pyttsx.init()
+                engine.say("The predicted text is " + str(predicted_label))
+                engine.runAndWait()
+                engine.stop()
             except Exception:
                 exception_traceback = traceback.format_exc()
                 print("Error while applying image transformation with the following exception trace:\n{}".format(exception_traceback))
